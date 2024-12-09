@@ -36,7 +36,7 @@ export default function HomePage() {
                 <ul>
                     {notes.map((note) => (
                         <li key={note.id}>
-                            <Link href={`../notes/${note.id}`}>
+                            <Link href={{ pathname: '/notes', query: { noteId: note.id }}}>
                                 <a>{note.title}</a>
                             </Link>
                         </li>

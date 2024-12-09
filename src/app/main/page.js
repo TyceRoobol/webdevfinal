@@ -29,7 +29,7 @@ export default function LandingPage() {
         <button onClick={handleLogin}>Login with GitHub</button>
       ) : (
         <div>
-          <p>Welcome, {user.displayName} ({user.email})</p>
+          <p>Welcome, {user.email}</p>
           <button onClick={handleLogout}>Logout</button>
           <button onClick={() => router.push("/main/home")}>Go to home page</button>
         </div>
