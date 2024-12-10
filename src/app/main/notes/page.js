@@ -49,6 +49,7 @@ export default function NoteEditor() {
     const [error, setError] = useState(null);
     const {user} = useUserAuth();
     const [newNote, setNewNote] = useState(true);
+    const [noteTitle, setNoteTitle] = useState("");
     const [noteContent, setNoteContent] = useState("");
     const [editorContent, setEditorContent] = useState("");
     const [cssEditorContent, setCssEditorContent] = useState("");
@@ -66,6 +67,7 @@ export default function NoteEditor() {
             try {
               const noteData = await fetchNote(userId, noteId);
               setNote(noteData);
+              setNoteTitle(noteData.title || "");
             } catch (error) {
               setError("Failed to fetch note");
             } finally {
@@ -86,17 +88,13 @@ export default function NoteEditor() {
         return <div>{error}</div>;
       }
 
-      const handleClick = () => {
-        if (newNote) {
-          addNote();
-        } else {
-          updateNote();
-        }
-      }
-
       const handleNoteChange = (e) => {
         setNoteContent(e.target.value);
       }
+
+      const handleTitleChange = (e) => {
+        setNoteTitle(e.target.value);
+      };
 
       const handleEditorChange = (newValue, e) => {
         setEditorContent(newValue);
@@ -107,7 +105,7 @@ export default function NoteEditor() {
       }
 
       const generatePreviewCss = () => {
-        const userCss = cssEditorContent || ""; // User CSS
+        const userCss = cssEditorContent || "";
         return `
           <style>
             ${defaultCss}  /* Default styles */
@@ -140,12 +138,41 @@ export default function NoteEditor() {
     updateIframe();
   }, [editorContent, cssEditorContent]);
 
+  const handleClick = () => {
+    if (newNote) {
+      addNote({
+        title: noteTitle,
+        content: noteContent,
+        html: editorContent,
+        css: cssEditorContent,
+      });
+    } else {
+      updateNote({
+        noteId: noteId,
+        title: noteTitle,
+        content: noteContent,
+        html: editorContent,
+        css: cssEditorContent,
+      });
+    }
+  };
+
     return(
         <main>
+          <button onClick={() => router.push("/main/home")}>Exit without saving</button>
           <div>
             {newNote ? 
             <div>
               <h1>Create Note</h1>
+              <label htmlFor="note-title">Note Title:</label>
+              <input
+                id="note-title"
+                type="text"
+                placeholder="Enter note title"
+                value={noteTitle}
+                onChange={handleTitleChange}
+                style={{ width: "100%", marginBottom: "10px" }}
+              />
               <textarea 
                 onChange={handleNoteChange} 
                 placeholder="Write your note here..." 
