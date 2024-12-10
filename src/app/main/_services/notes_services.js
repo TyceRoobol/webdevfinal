@@ -33,12 +33,13 @@ export const fetchNote = async (userId, noteId) => {
   }
 };
 
-export const updateNote = async (userId, noteId, noteText, monacoText) => {
+export const updateNote = async (userId, noteId, noteText, monacoText, cssText) => {
   try {
       const noteRef = doc(db, "users", userId, "notes", noteId);
       await updateDoc(noteRef, {
           text: noteText,
           monacoText: monacoText,
+          cssText: cssText,
       });
       console.log("Note successfully updated!");
   } catch (error) {

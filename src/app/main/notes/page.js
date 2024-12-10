@@ -50,6 +50,7 @@ export default function NoteEditor() {
     const {user} = useUserAuth();
     const [newNote, setNewNote] = useState(true);
     const [editorContent, setEditorContent] = useState("");
+    const [cssEditorContent, setCssEditorContent] = useState("");
 
     const { noteId } = router.query || {};
 
@@ -100,6 +101,10 @@ export default function NoteEditor() {
         setEditorContent(newValue);
       }
 
+      const handleCssChange = (newValue, e) => {
+
+      }
+
     return(
         <main>
           <div>
@@ -112,12 +117,21 @@ export default function NoteEditor() {
                 rows="10" 
                 cols="50"
               />
+              <h2>html</h2>
               <MonacoEditor 
                 height="400px"
                 language="html"
                 onChange={handleEditorChange}
                 theme="vs-dark"
                 value={editorContent}
+              />
+              <h2>Css</h2>
+              <MonacoEditor
+                height="400px"
+                language="css"
+                onchange={handleCssChange}
+                theme="vs-dark"
+                value={cssEditorContent}
               />
             </div>
             : 
@@ -130,12 +144,21 @@ export default function NoteEditor() {
                 rows="10" 
                 cols="50"
               />
+              <h2>html</h2>
               <MonacoEditor 
                 height="400px"
                 language="html"
                 value={note.monacoText}
                 onChange={handleEditorChange()}
                 theme="vs-dark"
+              />
+              <h2>Css</h2>
+              <MonacoEditor
+                height="400px"
+                language="css"
+                onchange={handleCssChange}
+                theme="vs-dark"
+                value={cssEditorContent}
               />
             </div>
             }
