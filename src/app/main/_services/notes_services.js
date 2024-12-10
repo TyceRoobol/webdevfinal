@@ -32,3 +32,17 @@ export const fetchNote = async (userId, noteId) => {
     throw error;  // Optional: rethrow to be handled by the caller
   }
 };
+
+export const updateNote = async (userId, noteId, noteText, monacoText) => {
+  try {
+      const noteRef = doc(db, "users", userId, "notes", noteId);
+      await updateDoc(noteRef, {
+          text: noteText,
+          monacoText: monacoText,
+      });
+      console.log("Note successfully updated!");
+  } catch (error) {
+      console.error("Error updating note: ", error);
+      throw new Error("Failed to update note");
+  }
+};
