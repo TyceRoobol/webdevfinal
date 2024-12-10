@@ -33,7 +33,7 @@ export default function HomePage() {
             <h1>Welcome {user.email}</h1>
             <div>
                 <h2>My Notes</h2>
-                <button onClick={() => router.push("../notes")}>New Note</button>
+                <button onClick={() => router.push("/main/notes")}>New Note</button>
                 <ul>
                     {notes.map((note) => (
                         <li key={note.id}>
