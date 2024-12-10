@@ -49,6 +49,7 @@ export default function NoteEditor() {
     const [error, setError] = useState(null);
     const {user} = useUserAuth();
     const [newNote, setNewNote] = useState(true);
+    const [noteContent, setNoteContent] = useState("");
     const [editorContent, setEditorContent] = useState("");
     const [cssEditorContent, setCssEditorContent] = useState("");
 
@@ -93,8 +94,8 @@ export default function NoteEditor() {
         }
       }
 
-      const handleNoteChange = () => {
-
+      const handleNoteChange = (e) => {
+        setNoteContent(e.target.value);
       }
 
       const handleEditorChange = (newValue, e) => {
@@ -148,6 +149,7 @@ export default function NoteEditor() {
               <textarea 
                 onChange={handleNoteChange} 
                 placeholder="Write your note here..." 
+                value={noteContent}
                 rows="10" 
                 cols="50"
               />
