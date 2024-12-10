@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useUserAuth } from "../_utils/auth-context";
 import { useRouter } from "next/navigation";
 import { useMonaco } from "@monaco-editor/react";
@@ -102,8 +102,42 @@ export default function NoteEditor() {
       }
 
       const handleCssChange = (newValue, e) => {
-
+        setCssEditorContent(newValue);
       }
+
+      const generatePreviewCss = () => {
+        const userCss = cssEditorContent || ""; // User CSS
+        return `
+          <style>
+            ${defaultCss}  /* Default styles */
+          </style>
+          <style>
+            ${userCss}     /* User-defined styles */
+          </style>
+        `;
+      };
+
+      const generatePreview = () => {
+        return `
+          ${generatePreviewCss()}
+          ${editorContent}
+        `;
+      };
+      
+      const iframeRef = React.createRef();
+
+  const updateIframe = () => {
+    if (iframeRef.current) {
+      const doc = iframeRef.current.contentWindow.document;
+      doc.open();
+      doc.write(generatePreview());
+      doc.close();
+    }
+  };
+
+  useEffect(() => {
+    updateIframe();
+  }, [editorContent, cssEditorContent]);
 
     return(
         <main>
@@ -129,7 +163,7 @@ export default function NoteEditor() {
               <MonacoEditor
                 height="400px"
                 language="css"
-                onchange={handleCssChange}
+                onChange={handleCssChange}
                 theme="vs-dark"
                 value={cssEditorContent}
               />
@@ -156,7 +190,7 @@ export default function NoteEditor() {
               <MonacoEditor
                 height="400px"
                 language="css"
-                onchange={handleCssChange}
+                onChange={handleCssChange}
                 theme="vs-dark"
                 value={cssEditorContent}
               />
@@ -165,10 +199,15 @@ export default function NoteEditor() {
           </div>
           <div>
             <h2>Preview</h2>
-            <div
-              style={{ border: "1px solid #ccc", padding: "10px", height: "300px", overflow: "auto" }}
-              dangerouslySetInnerHTML={{ __html: editorContent }}
-            />
+            <iframe
+              ref={iframeRef}
+              style={{
+              border: "1px solid #ccc",
+              padding: "10px",
+              height: "300px",
+              width: "100%",
+            }}
+          ></iframe>
           </div>
           <button onClick={() => handleClick()}>Save Note</button>
         </main>
