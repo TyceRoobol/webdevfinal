@@ -6,6 +6,9 @@
       "use": "@vercel/next"
     }
   ],
+  "scripts": {
+    "vercel-build": "npm run custom-npm-install && npm run build"
+  },
   "routes": [
     {
       "src": "/(.*)",

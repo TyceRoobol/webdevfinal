@@ -30,7 +30,7 @@ export default function LandingPage() {
 
   return (
     <div className={styles.landingContainer}>
-      <h1 className={styles.title}>Welcome to the App</h1>
+      <h1 className={styles.title}>Welcome to Inked</h1>
       {!user ? (
         <button className={styles.loginButton} onClick={handleLogin}>
           Login with GitHub
