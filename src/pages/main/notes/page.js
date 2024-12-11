@@ -82,9 +82,9 @@ export default function NoteEditor() {
           const noteData = await fetchNote(userId, noteId);
           setNote(noteData);
           setNoteTitle(noteData.title || "");
-          setNoteContent(noteData.content || "");
-          setEditorContent(noteData.editorContent || "");
-          setCssEditorContent(noteData.cssEditorContent || "");
+          setNoteContent(noteData.text || "");
+          setEditorContent(noteData.monacoText || "");
+          setCssEditorContent(noteData.cssText || "");
         } catch (error) {
           setError("Failed to fetch note");
         } finally {
