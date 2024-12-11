@@ -1,21 +1,25 @@
 "use client";
 
-import { useUserAuth } from "./_utils/auth-context";
-import { useRouter } from "next/navigation"; // Updated to next/navigation
+import { useState } from "react";
+import { useUserAuth } from "./main/_utils/auth-context";
+import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
-  const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
   const router = useRouter();
+  const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
     try {
       await gitHubSignIn();
+      if (user) {
+        router.push("/home");
+      }
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("Failed to sign in with GitHub", error);
     }
   };
 
-  const handleLogout = async () => {
+  const handleLogout = async (e) => {
     try {
       await firebaseSignOut();
     } catch (error) {
@@ -29,9 +33,8 @@ export default function LandingPage() {
         <button onClick={handleLogin}>Login with GitHub</button>
       ) : (
         <div>
-          <p>Welcome, {user.email}</p>
           <button onClick={handleLogout}>Logout</button>
-          <button onClick={() => router.push("/main/home")}>Go to home page</button>
+          <button onClick={() => router.push("/home")}>Go to home page</button>
         </div>
       )}
     </div>
