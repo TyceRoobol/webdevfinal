@@ -4,7 +4,6 @@ import dynamic from "next/dynamic";
 import React, {useEffect, useState} from 'react';
 import { useUserAuth } from "../_utils/auth-context";
 import { useRouter } from "next/navigation";
-import { useMonaco } from "@monaco-editor/react";
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
   ssr: false, // Disable SSR for Monaco
 });
@@ -44,10 +43,11 @@ const defaultCss = `
 
 export default function NoteEditor() {
     const router = useRouter();
+    const {user} = useUserAuth();
+    
     const [note, setNote] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const {user} = useUserAuth();
     const [newNote, setNewNote] = useState(true);
     const [noteTitle, setNoteTitle] = useState("");
     const [noteContent, setNoteContent] = useState("");
@@ -62,7 +62,6 @@ export default function NoteEditor() {
           setNewNote(false);
           setLoading(true);
           
-          // Fetch the note by ID
           const loadNote = async () => {
             try {
               const noteData = await fetchNote(userId, noteId);
@@ -138,22 +137,32 @@ export default function NoteEditor() {
     updateIframe();
   }, [editorContent, cssEditorContent]);
 
+  //credit: https://www.slingacademy.com/article/ways-to-generate-random-strings-in-javascript/ for generate random string code
+  const generateRandomString = (length) => {
+    let result = '';
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  };
+
   const handleClick = () => {
     if (newNote) {
-      addNote({
+      const noteToAdd = {
+        id: generateRandomString(16),
+        text: noteContent,
         title: noteTitle,
-        content: noteContent,
-        html: editorContent,
-        css: cssEditorContent,
-      });
+        monacoText: editorContent,
+        cssText: cssEditorContent,
+      }
+      addNote(user.uid, noteToAdd);
+      router.push("/main/home");
     } else {
-      updateNote({
-        noteId: noteId,
-        title: noteTitle,
-        content: noteContent,
-        html: editorContent,
-        css: cssEditorContent,
-      });
+      updateNote(user.uid, noteId, noteContent, editorContent, cssEditorContent, noteTitle);
+      router.push("/main/home");
     }
   };
 
