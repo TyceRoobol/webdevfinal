@@ -159,10 +159,10 @@ export default function NoteEditor() {
         cssText: cssEditorContent,
       }
       addNote(user.uid, noteToAdd);
-      router.push("/main/home");
+      router.push("/home");
     } else {
       updateNote(user.uid, noteId, noteContent, editorContent, cssEditorContent, noteTitle);
-      router.push("/main/home");
+      router.push("/home");
     }
   };
 

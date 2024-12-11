@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useUserAuth } from "./main/_utils/auth-context";
 import { getNotes } from "./main/_services/notes_services";
+import { auth } from "./main/_utils/firebase";
 export default function HomePage() {
   const router = useRouter();
   const { user, firebaseSignOut } = useUserAuth();
@@ -64,12 +65,12 @@ export default function HomePage() {
         <ul>
           {notes.map((note) => (
             <li key={note.id}>
-              <Link href={{ pathname: "/notes", query: { noteId: note.id } }}>
+              <Link href={{ pathname: "/main/notes/page", query: { noteId: note.id } }}>
                 {note.title}
               </Link>
             </li>
           ))}
-          <button onClick={() => router.push("/main/notes")}>New Note</button>
+          <button onClick={() => router.push("/main/notes/page")}>New Note</button>
         </ul>
       </div>
     </div>
