@@ -1,0 +1,106 @@
+
+  
+  /* Main container */
+  .container {
+    padding: 20px;
+    background-color: #f9F9F7; 
+    min-height: 100vh;
+  }
+  
+  /* Header styles */
+  .header {
+    color: #3B1E54; /* Dark purple */
+    font-size: 2rem;
+  }
+  
+  .subHeader {
+    color: #3B1E54; /* Lighter purple */
+    font-size: 1.5rem;
+  }
+  
+  /* Loading and redirecting messages */
+  .loading, .redirecting {
+    text-align: center;
+    color: #3B1E54;
+    font-size: 1.2rem;
+  }
+  
+  /* Logout button */
+  .logoutButton {
+    background-color: #3B1E54; /* Dark purple */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .logoutButton:hover {
+    background-color: #9B7EBD; /* Lighter purple on hover */
+  }
+  
+  /* Notes section */
+  .notesSection {
+    background-color: f9F9F7; /* Light gray background */
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .notesList {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .noteItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #D4BEE4; /* Soft lavender */
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .noteButton {
+    background-color: #3B1E54; /* Light purple */
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+  
+  .noteButton:hover {
+    background-color: #9B7EBD; /* Dark purple on hover */
+  }
+  
+  .deleteButton {
+    background-color: #3B1E54; /* Dark purple */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    border-radius: 5px;
+  }
+  
+  .deleteButton:hover {
+    background-color: #9B7EBD; /* Light purple on hover */
+  }
+  
+  .newNoteButton {
+    background-color: #3B1E54; /* Light purple */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+  
+  .newNoteButton:hover {
+    background-color: #9B7EBD; /* Dark purple on hover */
+  }
+  

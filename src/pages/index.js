@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useUserAuth } from "./main/_utils/auth-context";
 import { useRouter } from "next/navigation";
+import styles from "../pages/styles/landingstyles.module.css";
 
 export default function LandingPage() {
   const router = useRouter();
@@ -28,13 +29,24 @@ export default function LandingPage() {
   };
 
   return (
-    <div>
+    <div className={styles.landingContainer}>
+      <h1 className={styles.title}>Welcome to the App</h1>
       {!user ? (
-        <button onClick={handleLogin}>Login with GitHub</button>
+        <button className={styles.loginButton} onClick={handleLogin}>
+          Login with GitHub
+        </button>
       ) : (
-        <div>
-          <button onClick={handleLogout}>Logout</button>
-          <button onClick={() => router.push("/home")}>Go to home page</button>
+        <div className={styles.buttonContainer}>
+          <div className={styles.homeButtonContainer}>
+            <button className={styles.homeButton} onClick={() => router.push("/home")}>
+              Go to Home Page
+            </button>
+          </div>
+          <div className={styles.logoutButtonContainer}>
+            <button className={styles.logoutButton} onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
         </div>
       )}
     </div>
