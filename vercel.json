@@ -6,8 +6,10 @@
       "use": "@vercel/next"
     }
   ],
-  "scripts": {
-    "vercel-build": "npm run custom-npm-install && npm run build"
+  "build": {
+    "env": {
+      "CUSTOM_NPM_INSTALL_COMMAND": "npm install --legacy-peer-deps"
+    }
   },
   "routes": [
     {
