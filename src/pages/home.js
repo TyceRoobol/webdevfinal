@@ -61,15 +61,15 @@ export default function HomePage() {
       <button onClick={handleLogout}>Logout</button>
       <div>
         <h2>My Notes</h2>
-        <button onClick={() => router.push("/main/notes")}>New Note</button>
         <ul>
           {notes.map((note) => (
             <li key={note.id}>
               <Link href={{ pathname: "/notes", query: { noteId: note.id } }}>
-                <a>{note.title}</a>
+                {note.title}
               </Link>
             </li>
           ))}
+          <button onClick={() => router.push("/main/notes")}>New Note</button>
         </ul>
       </div>
     </div>
