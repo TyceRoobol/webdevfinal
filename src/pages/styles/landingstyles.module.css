@@ -1,0 +1,86 @@
+/* Container styles */
+.landingContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #D4BEE4; /* Soft lavender */
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 2rem;
+    color: #3B1E54; /* Dark purple */
+    margin-bottom: 20px;
+  }
+  
+  /* Container for buttons */
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Centers the buttons horizontally */
+    gap: 20px; /* Adds space between buttons */
+    width: 100%; /* Ensures the container takes full width */
+  }
+  
+  /* Home button container */
+  .homeButtonContainer {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    width: 100%; /* Full width to center */
+  }
+  
+  /* Logout button container */
+  .logoutButtonContainer {
+    display: flex;
+    justify-content: center; /* Centers the button horizontally */
+    width: 100%; /* Full width to center */
+  }
+  
+  /* Login button */
+  .loginButton {
+    background-color: #3B1E54; /* Dark purple */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .loginButton:hover {
+    background-color: #9B7EBD; /* Light purple on hover */
+  }
+  
+  /* Logout button */
+  .logoutButton {
+    background-color: #9B7EBD; /* Light purple */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .logoutButton:hover {
+    background-color: #3B1E54; /* Dark purple on hover */
+  }
+  
+  /* Home button */
+  .homeButton {
+    background-color: #9B7EBD; /* Light purple */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .homeButton:hover {
+    background-color: #3B1E54; /* Dark purple on hover */
+  }
+  
