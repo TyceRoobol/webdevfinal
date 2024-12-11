@@ -76,15 +76,12 @@ export default function NoteEditor() {
 
       const loadNote = async () => {
         try {
-          console.log("Fetching note...");
-          console.log("User ID:", userId);
-          console.log("Note ID:", noteId);
           const noteData = await fetchNote(userId, noteId);
           setNote(noteData);
           setNoteTitle(noteData.title || "");
-          setNoteContent(noteData.content || "");
-          setEditorContent(noteData.editorContent || "");
-          setCssEditorContent(noteData.cssEditorContent || "");
+          setNoteContent(noteData.text || "");
+          setEditorContent(noteData.monacoText || "");
+          setCssEditorContent(noteData.cssText || "");
         } catch (error) {
           setError("Failed to fetch note");
         } finally {
@@ -95,6 +92,18 @@ export default function NoteEditor() {
       loadNote();
     }
   }, [noteId]);
+
+  useEffect(() => {
+    if (iframeRef.current) {
+      const iframeDocument = iframeRef.current.contentDocument;
+      iframeDocument.open();
+      iframeDocument.write(`
+        <style>${cssEditorContent}</style>
+        ${editorContent}
+      `);
+      iframeDocument.close();
+    }
+  }, [editorContent, cssEditorContent]);
 
   const handleNoteChange = (e) => {
     setNoteContent(e.target.value);
@@ -125,6 +134,7 @@ export default function NoteEditor() {
     } else {
       updateNote(
         user.uid,
+        noteId,
         noteContent,
         editorContent,
         cssEditorContent,
