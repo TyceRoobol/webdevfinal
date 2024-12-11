@@ -1,10 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useUserAuth } from "./main/_utils/auth-context";
-import { getNotes } from "./main/_services/notes_services";
-import { auth } from "./main/_utils/firebase";
+import { getNotes, deleteNote } from "./main/_services/notes_services";
 import { useState, useEffect } from "react";
 
 export default function HomePage() {
@@ -57,6 +55,16 @@ export default function HomePage() {
     return <div>Redirecting...</div>;
   }
 
+  const handleDelete = async (noteId) => {
+    try {
+      await deleteNote(user.uid, noteId);
+      setNotes((prevNotes) => prevNotes.filter((note) => note.id !== noteId));
+      alert("Note successfully deleted!");
+    } catch (error) {
+      console.error("Failed to delete note:", error);
+    }
+  };
+
   return (
     <div>
       <h1>Welcome {user.email}</h1>
@@ -73,6 +81,7 @@ export default function HomePage() {
               >
                 {note.title}
               </button>
+              <button onClick={() => handleDelete(note.id)}>Delete Note</button>
             </li>
           ))}
         </ul>

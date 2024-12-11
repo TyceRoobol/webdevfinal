@@ -7,6 +7,7 @@ import {
   query,
   doc,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 
 export const getNotes = async (userId) => {
@@ -38,6 +39,16 @@ export const fetchNote = async (userId, noteId) => {
   } catch (error) {
     console.error("Failed to fetch note:", error);
     throw error;
+  }
+};
+
+export const deleteNote = async (userId, noteId) => {
+  try {
+    const noteRef = doc(db, "users", userId, "notes", noteId);
+    await deleteDoc(noteRef);
+  } catch (error) {
+    console.error("Error deleting note: ", error);
+    throw new Error("Failed to delete note");
   }
 };
 
