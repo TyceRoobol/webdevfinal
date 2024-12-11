@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
   ssr: false, // Disable SSR for Monaco
 });
+import styles from "../../styles/NoteEditor.module.css";
 import { fetchNote, addNote, updateNote } from "../_services/notes_services";
 
 const defaultCss = `
@@ -55,6 +56,7 @@ export default function NoteEditor() {
   const [noteContent, setNoteContent] = useState("");
   const [editorContent, setEditorContent] = useState("");
   const [cssEditorContent, setCssEditorContent] = useState("");
+  const [activeTab, setActiveTab] = useState("html");
 
   const [noteId, setNoteId] = useState(null);
 
@@ -153,14 +155,17 @@ export default function NoteEditor() {
   }
 
   return (
-    <main>
-      <div>
-        <h1>{newNote ? "Create Note" : "Edit Note"}</h1>
+    <main className={styles.main}>
+      <div className={styles.leftPane}>
+        <h1 className={styles.title}>
+          {newNote ? "Create Note" : "Edit Note"}
+        </h1>
         <input
           type="text"
           value={noteTitle}
           onChange={handleTitleChange}
           placeholder="Note Title"
+          className={styles.input}
         />
         <textarea
           value={noteContent}
@@ -168,37 +173,52 @@ export default function NoteEditor() {
           placeholder="Write your note here..."
           rows="10"
           cols="50"
-        />
-        <h2>HTML</h2>
-        <MonacoEditor
-          height="400px"
-          language="html"
-          value={editorContent}
-          onChange={handleEditorChange}
-          theme="vs-dark"
-        />
-        <h2>CSS</h2>
-        <MonacoEditor
-          height="400px"
-          language="css"
-          value={cssEditorContent}
-          onChange={handleCssChange}
-          theme="vs-dark"
+          className={styles.textarea}
         />
       </div>
-      <div>
-        <h2>Preview</h2>
-        <iframe
-          ref={iframeRef}
-          style={{
-            border: "1px solid #ccc",
-            padding: "10px",
-            height: "300px",
-            width: "100%",
-          }}
-        ></iframe>
+      <div className={styles.rightPane}>
+        <h2 className={styles.title}>Preview</h2>
+        <iframe ref={iframeRef} className={styles.iframe}></iframe>
+        <div className={styles.tabBar}>
+          <button
+            className={`${styles.tabButton} ${
+              activeTab === "html" ? styles.tabButtonActive : ""
+            }`}
+            onClick={() => setActiveTab("html")}
+          >
+            HTML
+          </button>
+          <button
+            className={`${styles.tabButton} ${
+              activeTab === "css" ? styles.tabButtonActive : ""
+            }`}
+            onClick={() => setActiveTab("css")}
+          >
+            CSS
+          </button>
+        </div>
+        {activeTab === "html" && (
+          <MonacoEditor
+            height="400px"
+            language="html"
+            value={editorContent}
+            onChange={handleEditorChange}
+            theme="vs-dark"
+          />
+        )}
+        {activeTab === "css" && (
+          <MonacoEditor
+            height="400px"
+            language="css"
+            value={cssEditorContent}
+            onChange={handleCssChange}
+            theme="vs-dark"
+          />
+        )}
+        <button onClick={handleClick} className={styles.button}>
+          Save Note
+        </button>
       </div>
-      <button onClick={handleClick}>Save Note</button>
     </main>
   );
 }
