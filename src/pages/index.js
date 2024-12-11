@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useUserAuth } from "./main/_utils/auth-context";
+import { useUserAuth } from "./_utils/auth-context";
 import { useRouter } from "next/navigation";
 import styles from "../pages/styles/landingstyles.module.css";
 
@@ -38,7 +38,10 @@ export default function LandingPage() {
       ) : (
         <div className={styles.buttonContainer}>
           <div className={styles.homeButtonContainer}>
-            <button className={styles.homeButton} onClick={() => router.push("/home")}>
+            <button
+              className={styles.homeButton}
+              onClick={() => router.push("/home")}
+            >
               Go to Home Page
             </button>
           </div>

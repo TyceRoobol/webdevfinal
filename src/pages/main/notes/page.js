@@ -3,13 +3,13 @@
 
 import dynamic from "next/dynamic";
 import React, { useEffect, useState, useRef } from "react";
-import { useUserAuth } from "../_utils/auth-context";
+import { useUserAuth } from "../../_utils/auth-context";
 import { useRouter } from "next/router";
 const MonacoEditor = dynamic(() => import("@monaco-editor/react"), {
   ssr: false, // Disable SSR for Monaco
 });
 import styles from "../../styles/NoteEditor.module.css";
-import { fetchNote, addNote, updateNote } from "../_services/notes_services";
+import { fetchNote, addNote, updateNote } from "../../_services/notes_services";
 
 const defaultCss = `
   body {

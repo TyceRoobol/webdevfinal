@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useUserAuth } from "./main/_utils/auth-context";
-import { getNotes, deleteNote } from "./main/_services/notes_services";
+import { useUserAuth } from "./_utils/auth-context";
+import { getNotes, deleteNote } from "./_services/notes_services";
 import { useState, useEffect } from "react";
-import styles from "../pages/styles/homestyles.module.css"
+import styles from "../pages/styles/homestyles.module.css";
 
 export default function HomePage() {
   const router = useRouter();
@@ -69,7 +69,9 @@ export default function HomePage() {
   return (
     <div className={styles.container}>
       <h1 className={styles.header}>Welcome {user.email}</h1>
-      <button className={styles.logoutButton} onClick={handleLogout}>Logout</button>
+      <button className={styles.logoutButton} onClick={handleLogout}>
+        Logout
+      </button>
       <div className={styles.notesSection}>
         <h2 className={styles.subHeader}>My Notes</h2>
         <ul className={styles.notesList}>
@@ -92,7 +94,10 @@ export default function HomePage() {
             </li>
           ))}
         </ul>
-        <button className={styles.newNoteButton} onClick={() => router.push("/main/notes/page")}>
+        <button
+          className={styles.newNoteButton}
+          onClick={() => router.push("/main/notes/page")}
+        >
           New Note
         </button>
       </div>
