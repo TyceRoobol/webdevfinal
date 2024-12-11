@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useUserAuth } from "./main/_utils/auth-context";
-
+import { getNotes } from "./main/_services/notes_services";
 export default function HomePage() {
   const router = useRouter();
   const { user, firebaseSignOut } = useUserAuth();
@@ -14,7 +14,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const loadNotes = async () => {
-      if (user && user.id) {
+      if (user && user.uid) {
         try {
           const fetchedNotes = await getNotes(user.uid);
           setNotes(fetchedNotes);

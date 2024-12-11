@@ -12,6 +12,7 @@
     "@monaco-editor/react": "^4.6.0",
     "encoding": "^0.1.13",
     "firebase": "^11.0.2",
+    "mini-css-extract-plugin": "^2.9.2",
     "next": "15.0.3",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106"
